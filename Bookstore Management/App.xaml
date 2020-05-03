@@ -1,0 +1,28 @@
+﻿<Application x:Class="BookStore_Management.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:BookStore_Management"
+             StartupUri="View/Login.xaml">
+    
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+                <ResourceDictionary Source="ResourceDictionary/BorderStyle.xaml"/>
+                <ResourceDictionary Source="ResourceDictionary/ButtonStyle.xaml"/>
+                <ResourceDictionary Source="ResourceDictionary/ComboBoxStyle.xaml"/>
+                <ResourceDictionary Source="ResourceDictionary/DataGridStyle.xaml"/>
+                <ResourceDictionary Source="ResourceDictionary/GridStyle.xaml"/>
+                <ResourceDictionary Source="ResourceDictionary/LabelStyle.xaml"/>
+                <ResourceDictionary Source="ResourceDictionary/MainResource.xaml"/>
+                <ResourceDictionary Source="ResourceDictionary/OtherStyle.xaml"/>
+                <ResourceDictionary Source="ResourceDictionary/PasswordBoxStyle.xaml"/>
+                <ResourceDictionary Source="ResourceDictionary/TextBlockStyle.xaml"/>
+                <ResourceDictionary Source="ResourceDictionary/TextBoxStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

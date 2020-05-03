@@ -1,0 +1,260 @@
+﻿<Window x:Class="BookStore_Management.View.BookInfoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookStore_Management.View"
+        mc:Ignorable="d"
+        x:Name="_BookInfo"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:uc="clr-namespace:BookStore_Management.UC"
+        xmlns:root="clr-namespace:BookStore_Management"
+        TextElement.FontFamily="Microsoft Sans Serif" TextElement.FontSize="18"
+        Height="660" Width="960"
+        WindowStyle="None" WindowStartupLocation="CenterScreen" AllowsTransparency="True" Background="{x:Null}">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="StateChanged">
+            <i:InvokeCommandAction Command="{Binding WindowNomalSizeCommand}" CommandParameter="{Binding ElementName=_BookInfo}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding SetParentCommand}" CommandParameter="{Binding ElementName=_BookInfo}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Window.Resources>
+        <root:Money2String x:Key="MoneyConverter"/>
+        <root:Bool2Visibility x:Key="VisibilityConverter"/>
+        <root:Increase1 x:Key="ColumnSpanConverter"/>
+        <root:Heigh2With x:Key="Heigh2WithConverter"/>
+    </Window.Resources>
+
+    <Border Style="{StaticResource GlobalBorderStyle}">
+        <Grid>
+            <Grid.Resources>
+                <Style TargetType="Label" BasedOn="{StaticResource LabelBaseStyle}"/>
+                <Style TargetType="Button" BasedOn="{StaticResource ButtonBaseStyle}"/>
+                <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockBaseStyle}"/>
+                <root:IndentWrapConverter x:Key="WrapConverter"/>
+                <root:NumberWithSignConverter x:Key="NumberConverter"/>
+            </Grid.Resources>
+        
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+        
+            <uc:ControlBar x:Name="_ControlBar" Grid.Row="0" Title="Thông tin sách chi tiết" IsHaveMaximize="False" IsHaveBack="True"/>
+            <Grid x:Name="_MainZone" Grid.Row="1" Margin="35">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{Binding ElementName=_MainZone, Path=ActualHeight, Converter={StaticResource Heigh2WithConverter}}"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.Resources>
+                    <Style TargetType="Border" BasedOn="{StaticResource SmokeBorderStyle}">
+                        <Setter Property="Margin" Value="5"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid Grid.Column="0" Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Row="0" Source="/BookStore Management;component/Images/DefaultBook.png" Stretch="Fill" Margin="5"/>
+                    <Image Grid.Row="0" Source="{Binding data.Image}" Stretch="Fill" Margin="5"/>
+                    <Grid Grid.Row="0" Height="36" VerticalAlignment="Bottom" Background="#54FFFFFF" Margin="5">
+                        <Label Content="{Binding data.Cost}"/>
+                    </Grid>
+                    <Border Grid.Row="1" Style="{StaticResource ButtonBorderStyle}" Margin="5">
+                        <Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Canvas Width="24" Height="24">
+                                    <Path Data="M11,9H13V6H16V4H13V1H11V4H8V6H11M7,18A2,2 0 0,0 5,20A2,2 0 0,0 7,22A2,2 0 0,0 9,20A2,2 0 0,0 7,18M17,18A2,2 0 0,0 15,20A2,2 0 0,0 17,22A2,2 0 0,0 19,20A2,2 0 0,0 17,18M7.17,14.75L7.2,14.63L8.1,13H15.55C16.3,13 16.96,12.59 17.3,11.97L21.16,4.96L19.42,4H19.41L18.31,6L15.55,11H8.53L8.4,10.73L6.16,6L5.21,4L4.27,2H1V4H3L6.6,11.59L5.25,14.04C5.09,14.32 5,14.65 5,15A2,2 0 0,0 7,17H19V15H7.42C7.29,15 7.17,14.89 7.17,14.75Z"/>
+                                </Canvas>
+                                <Label Grid.Column="1" Content="Thêm vào giỏ hàng" HorizontalAlignment="Left"/>
+                            </Grid>
+                            <Button/>
+                        </Grid>
+                    </Border>
+                </Grid>
+                <Grid Grid.Column="0" Grid.Row="1" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Style="{StaticResource ButtonBorderStyle}" Margin="5">
+                        <Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Canvas Grid.Column="0" Width="24" Height="24">
+                                    <Path Data="M17,3H7A2,2 0 0,0 5,5V21L12,18L19,21V5C19,3.89 18.1,3 17,3Z"/>
+                                </Canvas>
+                                <Label Grid.Column="1" Content="Lưu trữ" HorizontalAlignment="Left"/>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                    <Grid Grid.Row="1">
+                        <Grid.Resources>
+                            <Style TargetType="Border" BasedOn="{StaticResource {x:Type Border}}">
+                                <Setter Property="Width" Value="100"/>
+                            </Style>
+                        </Grid.Resources>
+                        <Border HorizontalAlignment="Left">
+                            <Label Content="Bán chạy"/>
+                        </Border>
+                        <Border HorizontalAlignment="Right">
+                            <Label Content="Còn tồn"/>
+                        </Border>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Column="1" Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0">
+                        <StackPanel Margin="5">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                    <Border Style="{StaticResource ChildrenContent}"/>
+                                    <TextBlock>
+                                            <Run Text="{Binding data.BookName}"/>
+                                            <Run Text="-"/>
+                                            <Run Text="{Binding data.Author}"/>
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <Label Content="ID:"/>
+                                    <Label Content="{Binding data.ID}"/>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Height="40">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                    <materialDesign:PackIcon Grid.Column="0" Kind="StarHalf" Foreground="Yellow"/>
+                                    <Label Content="{Binding data.SRatting}"/>
+                                    <Label Padding="0" Content="("/>
+                                    <Label Padding="0" Content="{Binding data.Sold}"/>
+                                    <Label Padding="0" Content=")"/>
+                                </StackPanel>
+                                <TextBlock Grid.Column="1" HorizontalAlignment="Center">
+                                        <Run Text="NXB:"/>
+                                        <Run Text="{Binding data.PublishingCompany}"/>
+                                </TextBlock>
+                                <TextBlock Grid.Column="2">
+                                        <Run Text="Năm XB:"/>
+                                        <Run Text="{Binding data.Year}"/>
+                                </TextBlock>
+                            </Grid>
+                            <WrapPanel x:Name="_Categoties" MinHeight="40">
+                                <WrapPanel.Resources>
+                                    <Style TargetType="materialDesign:Chip">
+                                        <Setter Property="Padding" Value="0"/>
+                                        <Setter Property="FontSize" Value="18"/>
+                                        <Setter Property="Background" Value="White"/>
+                                        <Setter Property="Margin" Value="5,0,0,5"/>
+                                        <Setter Property="Command" Value="{Binding ChipClickCommand}"/>
+                                        <Setter Property="CommandParameter" Value="{Binding RelativeSource={RelativeSource Self}}"/>
+                                    </Style>
+                                </WrapPanel.Resources>
+                                <Label Content="Thể loại:"/>
+                            </WrapPanel>
+                        </StackPanel>
+                    </Border>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0" Grid.ColumnSpan="{Binding ElementName=_BookInfo, Path=IsHaveHistory, Converter={StaticResource ColumnSpanConverter}}">
+                            <Grid Margin="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Orientation="Horizontal" Height="36">
+                                    <Border Style="{StaticResource ChildrenContent}"/>
+                                    <Label Content="Tóm tắt"/>
+                                </StackPanel>
+                                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                                    <TextBlock TextWrapping="Wrap" TextAlignment="Justify" Text="{Binding data.Summary, Converter={StaticResource WrapConverter}, ConverterParameter=235, Mode=TwoWay}" VerticalAlignment="Stretch"/>
+                                </ScrollViewer>
+                            </Grid>
+                        </Border>
+                        <Border Grid.Column="1" Visibility="{Binding ElementName=_BookInfo, Path=IsHaveHistory, Converter={StaticResource VisibilityConverter}}">
+                            <Grid Margin="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0" Height="36" Orientation="Horizontal">
+                                    <Border Style="{StaticResource ChildrenContent}"/>
+                                    <Label Content="Lịch sử"/>
+                                </StackPanel>
+                                <DataGrid Grid.Row="1" ItemsSource="{Binding History}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                                        <DataGridTextColumn Header="Số lượng +/-" Binding="{Binding Number, Converter={StaticResource NumberConverter}}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Grid>
+                <Border Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Visibility="{Binding ElementName=_BookInfo, Path=IsHaveHistory, Converter={StaticResource VisibilityConverter}}">
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Height="36" Orientation="Horizontal">
+                            <Border Style="{StaticResource ChildrenContent}"/>
+                            <Label Content="Kho"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal">
+                            <StackPanel.Resources>
+                                <Style TargetType="Grid">
+                                    <Setter Property="Width" Value="30"/>
+                                </Style>
+                            </StackPanel.Resources>
+                            <TextBlock>
+                                <Run Text="Giá gốc: "/>
+                                <Run Text="{Binding data.DefCost, Converter={StaticResource MoneyConverter}}"/>
+                            </TextBlock>
+                            <Grid/>
+                            <TextBlock>
+                                <Run Text="Đã bán:"/>
+                                <Run Text="{Binding data.Sold}"/>
+                            </TextBlock>
+                            <Grid/>
+                            <TextBlock>
+                                <Run Text="Tồn kho:"/>
+                                <Run Text="{Binding data.Inventory}"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

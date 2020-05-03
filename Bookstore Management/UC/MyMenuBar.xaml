@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="BookStore_Management.UC.MyMenuBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookStore_Management.UC"
+             xmlns:root="clr-namespace:BookStore_Management"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d"
+             Loaded="MyMenuBar_Loaded">
+
+    <UserControl.Resources>
+        <root:Index2Thickness x:Key="ThicknessConverter"/>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel x:Name="_Menu" Grid.Row="0" Orientation="Horizontal">
+            <StackPanel.Resources>
+                <Style TargetType="Button" BasedOn="{StaticResource MenuButtonStyle}">
+                    <Setter Property="Width" Value="{Binding ElementName=_Slider, Path=Width}"/>
+                    <EventSetter Event="Click" Handler="Button_Click"/>
+                </Style>
+            </StackPanel.Resources>
+        </StackPanel>
+        <Grid Grid.Row="1" Margin="0,0,0,10">
+            <Border Height="2" Background="Black" CornerRadius="1"/>
+            <Border x:Name="_Slider" Width="125" Height="6" Background="#18A0FB" CornerRadius="3" HorizontalAlignment="Left"/>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="BookStore_Management.UC.WarningTextBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookStore_Management.UC"
+             mc:Ignorable="d"
+             Name="uc"
+             Height="40"
+             >
+    <Grid>
+        <Border Style="{StaticResource ButtonBorderStyle}" MinWidth="0">
+            <TextBox x:Name="_TextBox" Style="{StaticResource TextBoxBaseStyle}" BorderThickness="0,0,0,2" Padding="3,0,3,0" Text="{Binding Text,ElementName=uc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </Border>
+        <Grid Margin="0,40,0,-20">
+            <TextBox x:Name="_Warning" Style="{StaticResource WarningMessageTextBox}"  Text="{Binding Warning, ElementName=uc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Grid Background="Transparent"/>
+        </Grid>
+    </Grid>
+</UserControl>

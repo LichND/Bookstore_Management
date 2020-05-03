@@ -1,0 +1,37 @@
+﻿<Page x:Class="BookStore_Management.View.TaiKhoan.TaiKhoanPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookStore_Management.View.TaiKhoan"
+      xmlns:uc="clr-namespace:BookStore_Management.UC"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      mc:Ignorable="d"
+      DataContext="{StaticResource TaiKhoanVM}"
+      x:Name="_TaiKhoanPage">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding SetParentCommand}" CommandParameter="{Binding ElementName=_TaiKhoanPage}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" VerticalAlignment="Top" Style="{StaticResource ChildrenContent}"/>
+            <uc:MyMenuBar x:Name="_uc" Grid.Column="1" ButtonWidth="150">
+                <Button Content="Thông tin" Command="{Binding ThongTinShowCommand}"/>
+                <Button Content="Quản lý tài khoản" Command="{Binding QuanLyShowCommand}"/>
+            </uc:MyMenuBar>
+        </Grid>
+        <Frame x:Name="check" Grid.Row="1" Content="{Binding ContentZone, UpdateSourceTrigger=PropertyChanged}"/>
+    </Grid>
+</Page>

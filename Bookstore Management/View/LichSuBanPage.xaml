@@ -1,0 +1,39 @@
+﻿<Page x:Class="BookStore_Management.View.LichSuBanPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookStore_Management.View"
+      xmlns:uc="clr-namespace:BookStore_Management.UC"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      TextElement.FontFamily="Microsoft Sans Serif" TextElement.FontSize="18" TextElement.Foreground="Black"
+      mc:Ignorable="d"
+      x:Name="_LichSuBanPage"
+      DataContext="{StaticResource LichSuBanPageVM}">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding SetParentCommand}" CommandParameter="{Binding ElementName=_LichSuBanPage}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <Border Grid.Row="0" Style="{StaticResource SmokeBorderStyle}">
+            <DataGrid ItemsSource="{Binding AllBill, Source={StaticResource LogicData}}" SelectedItem="{Binding SelectedItem}" ContextMenu="{x:Null}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding ID}" IsReadOnly="True" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                    <DataGridTextColumn Header="Khách hàng" Binding="{Binding Customer}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                    <DataGridTextColumn Header="Nhân viên" Binding="{Binding Employees}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                    <DataGridTextColumn Header="Số tiền" Binding="{Binding Money}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                    <DataGridTextColumn Header="Thời gian" Binding="{Binding DateTime}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                </DataGrid.Columns>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding MoreInfoCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </DataGrid>
+        </Border>
+    </Grid>
+</Page>

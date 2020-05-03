@@ -1,0 +1,225 @@
+﻿<Page x:Class="BookStore_Management.View.NhaSachPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookStore_Management.View"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:root="clr-namespace:BookStore_Management"
+      TextElement.FontFamily="Microsoft Sans Serif" TextElement.FontSize="18"
+      mc:Ignorable="d" 
+      DataContext="{StaticResource NhaSachPageVM}"
+      x:Name="_NhaSachPage">
+
+    <Page.Resources>
+        <root:Money2String x:Key="MoneyConverter"/>
+        <root:Count2Visibility x:Key="VisibilityConverter"/>
+        <root:Int2Bool x:Key="CounterConverter"/>
+    </Page.Resources>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding SetParentCommand}" CommandParameter="{Binding ElementName=_NhaSachPage}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Border Style="{StaticResource ButtonBorderStyle}">
+                    <Grid MinWidth="320" Height="40">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" Width="40">
+                                <materialDesign:PackIcon Kind="Add"/>
+                                <materialDesign:PopupBox Width="40" Height="40" PlacementMode="BottomAndAlignLeftEdges" ToolTipService.Placement="Right" ToolTip="Tìm kiếm nâng cao" Foreground="Transparent" StaysOpen="True" >
+                                    <StackPanel x:Name="_AdvSearch" Width="350">
+                                        <StackPanel.Resources>
+                                            <Style TargetType="Label">
+                                                <Setter Property="Padding" Value="0"/>
+                                                <Setter Property="Margin" Value="5,5,0,5"/>
+                                                <Setter Property="FontWeight" Value="Bold"/>
+                                                <Setter Property="FontSize" Value="16"/>
+                                            </Style>
+                                            <Style TargetType="CheckBox" BasedOn="{StaticResource MaterialDesignCheckBox}">
+                                                <Setter Property="FontSize" Value=" 16"/>
+                                                <Setter Property="Margin" Value="0,0,10,0"/>
+                                            </Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Setter Property="Margin" Value="10,5,10,5"/>
+                                            </Style>
+                                        </StackPanel.Resources>
+                                    </StackPanel>
+                                </materialDesign:PopupBox>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <TextBox VerticalContentAlignment="Center" Margin="5,0,10,0" materialDesign:HintAssist.Hint="Nhập tên sách, ID" Style="{StaticResource TextBoxBaseStyle}" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+            <Border Grid.Column="1" Margin="10,0,0,0" Style="{StaticResource ButtonBorderStyle}">
+                <Button Content="Tìm kiếm" Style="{StaticResource ButtonBaseStyle}" Command="{Binding SearchCommand}" CommandParameter="{Binding ElementName=_SearchTextBox}"/>
+            </Border>
+            <Border Grid.Column="2" HorizontalAlignment="Right" Style="{StaticResource ButtonBorderStyle}">
+                <materialDesign:Badged HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BadgeBackground="Black" BadgeForeground="White" Badge="{Binding CartCount}">
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Thêm hóa đơn" VerticalContentAlignment="Center"/>
+                            <Canvas Width="24" Height="24">
+                                <Path Data="M11,9H13V6H16V4H13V1H11V4H8V6H11M7,18A2,2 0 0,0 5,20A2,2 0 0,0 7,22A2,2 0 0,0 9,20A2,2 0 0,0 7,18M17,18A2,2 0 0,0 15,20A2,2 0 0,0 17,22A2,2 0 0,0 19,20A2,2 0 0,0 17,18M7.17,14.75L7.2,14.63L8.1,13H15.55C16.3,13 16.96,12.59 17.3,11.97L21.16,4.96L19.42,4H19.41L18.31,6L15.55,11H8.53L8.4,10.73L6.16,6L5.21,4L4.27,2H1V4H3L6.6,11.59L5.25,14.04C5.09,14.32 5,14.65 5,15A2,2 0 0,0 7,17H19V15H7.42C7.29,15 7.17,14.89 7.17,14.75Z"/>
+                            </Canvas>
+                        </StackPanel>
+                        <materialDesign:PopupBox x:Name="_popup" Height="40" HorizontalAlignment="Stretch" Foreground="Transparent" PlacementMode="BottomAndAlignRightEdges" IsEnabled="{Binding CartCount, Converter={StaticResource CounterConverter}}" StaysOpen="True">
+                            <Grid Width="550" MaxHeight="440" Background="White" Margin="5,0,5,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Hidden">
+                                    <StackPanel x:Name="_Bill"/>
+                                </ScrollViewer>
+                                <TextBlock Grid.Row="1" Style="{StaticResource TextBlockBaseStyle}" HorizontalAlignment="Left" FontSize="18">
+                                    <Run Text="Số tiền:"/>
+                                    <Run Text="{Binding Money, Converter={StaticResource MoneyConverter}}"/>
+                                </TextBlock>
+                                <Border Grid.Row="1" Style="{StaticResource ButtonBorderStyle}" HorizontalAlignment="Right">
+                                    <Button Content="Thanh toán" Style="{StaticResource ButtonBaseStyle}" Command="{Binding AddBillCommand}"/>
+                                </Border>
+                            </Grid>
+                        </materialDesign:PopupBox>
+                    </Grid>
+                </materialDesign:Badged>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="1" Margin="0,10,0,0">
+            <Border Style="{StaticResource SmokeBorderStyle}">
+                <Grid>
+                    <Label Content="Không tìm thấy sách" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Visibility="{Binding BookDatas.Count, Converter={StaticResource VisibilityConverter}}"/>
+                    <ScrollViewer HorizontalContentAlignment="Center" Margin="5,5,5,5" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <ItemsControl x:Name="_DataZone" ItemsSource="{Binding BookDatas}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <materialDesign:Flipper Margin="10" IsFlipped="{Binding IsFlipped, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                        <materialDesign:Flipper.FrontContent>
+                                            <Border Style="{StaticResource FlipperBorderStyle}">
+                                                <Border.ContextMenu>
+                                                    <ContextMenu>
+                                                        <MenuItem Header="Thông tin chi tiết" Command="{Binding MoreDetailsCommand}" CommandParameter="{Binding ElementName=_Flipper}"/>
+                                                        <MenuItem Header="Thêm vào giỏ hàng" Command="{Binding AddToCartCommand}"/>
+                                                        <MenuItem Header="Xóa khỏi danh sách" Command="{Binding DeleteCommand}"/>
+                                                    </ContextMenu>
+                                                </Border.ContextMenu>
+                                                <Grid Margin="10">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Image Grid.Column="0" MaxWidth="115" Source="/BookStore Management;component/Images/DefaultBook.png" Stretch="Fill" Cursor="Hand">
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                                <i:InvokeCommandAction Command="{Binding FlipCommand}" CommandParameter="{Binding ElementName=_Flipper}"/>
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                    </Image>
+                                                    <Image Grid.Column="0" MaxWidth="115" Source="{Binding data.Image}" Stretch="Fill" Cursor="Hand">
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                                <i:InvokeCommandAction Command="{Binding FlipCommand}" CommandParameter="{Binding ElementName=_Flipper}"/>
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                    </Image>
+                                                    <Grid Grid.Column="1" Margin="10,0,0,0">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition/>
+                                                            <RowDefinition/>
+                                                            <RowDefinition/>
+                                                            <RowDefinition/>
+                                                            <RowDefinition/>
+                                                            <RowDefinition/>
+                                                        </Grid.RowDefinitions>
+                                                        <Grid.Resources>
+                                                            <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockBaseStyle}">
+                                                                <Setter Property="Foreground" Value="Black"/>
+                                                            </Style>
+                                                        </Grid.Resources>
+                                                        <TextBlock Grid.Row="0" Text="{Binding data.BookName}" ToolTip="{Binding data.BookName}" ToolTipService.Placement="Bottom"/>
+                                                        <TextBlock Grid.Row="1" ToolTip="{Binding data.AuthorYear}" ToolTipService.Placement="Bottom" Text="{Binding data.AuthorYear}"/>
+                                                        <TextBlock Grid.Row="2" Text="{Binding data.MainGenre}"/>
+                                                        <TextBlock Grid.Row="3">
+                                                            <Run Text="Giá bán:"/>
+                                                            <Run Text="{Binding data.Cost, Converter={StaticResource MoneyConverter}}"/>
+                                                        </TextBlock>
+                                                        <TextBlock Grid.Row="4">
+                                                            <Run Text="Còn lại:"/>
+                                                            <Run Text="{Binding data.Inventory}"/>
+                                                        </TextBlock>
+                                                        <Grid Grid.Row="5">
+                                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                                <Grid>
+                                                                    <materialDesign:RatingBar VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Yellow" Value="{Binding data.Ratting}"/>
+                                                                    <Grid Background="Transparent" ToolTip="{Binding data.SRatting}" ToolTipService.Placement="Mouse"/>
+                                                                </Grid>
+                                                                <TextBlock>
+                                                                    <Run Text="("/>
+                                                                    <Run Text="{Binding data.Sold}"/>
+                                                                    <Run Text=")"/>
+                                                                </TextBlock>
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                            </Border>
+                                        </materialDesign:Flipper.FrontContent>
+                                        <materialDesign:Flipper.BackContent>
+                                            <Border Style="{StaticResource FlipperBorderStyle}" Cursor="Hand">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                        <i:InvokeCommandAction Command="{Binding FlipCommand}"/>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                                <StackPanel Margin="20,20,20,0">
+                                                    <StackPanel.Resources>
+                                                        <Style TargetType="Button" BasedOn="{StaticResource AllowBackGroundButtonStyle}">
+                                                            <Setter Property="Height" Value="40"/>
+                                                            <Setter Property="Foreground" Value="Black"/>
+                                                        </Style>
+                                                        <Style TargetType="Border" BasedOn="{StaticResource DivideBorderStyle}"/>
+                                                    </StackPanel.Resources>
+                                                    <Button Content="Thông tin chi tiết" Command="{Binding MoreDetailsCommand}"/>
+                                                    <Border/>
+                                                    <Button Content="Thêm vào giỏ hàng" Command="{Binding AddToCartCommand}"/>
+                                                    <Border/>
+                                                    <Button Content="Xóa khỏi danh sách" Command="{Binding DeleteCommand}"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </materialDesign:Flipper.BackContent>
+                                    </materialDesign:Flipper>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Page>

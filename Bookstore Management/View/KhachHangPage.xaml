@@ -1,0 +1,138 @@
+﻿<Page x:Class="BookStore_Management.View.KhachHangPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:local="clr-namespace:BookStore_Management.View"
+      xmlns:root="clr-namespace:BookStore_Management"
+      xmlns:uc="clr-namespace:BookStore_Management.UC"
+      mc:Ignorable="d"
+      DataContext="{StaticResource KhachHangPageVM}"
+      TextElement.FontFamily="Microsoft Sans Serif" TextElement.FontSize="18"
+      x:Name="_KhachHangPage">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding SetParentCommand}" CommandParameter="{Binding ElementName=_KhachHangPage}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Page.Resources>
+        <root:Zero2Null x:Key="NumberConverter"/>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Style="{StaticResource SmokeBorderStyle}">
+            <DataGrid ItemsSource="{Binding Datas}" SelectedIndex="{Binding SelectedIndex}" SelectedItem="{Binding SelectedItem}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                    <DataGridTextColumn Header="Họ và tên" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Giới tính" Binding="{Binding Sex}"/>
+                    <DataGridTextColumn Header="Liên lạc" Binding="{Binding Contact}"/>
+                    <DataGridTextColumn Header="Tổng tiền chi" Binding="{Binding Spent}"/>
+                </DataGrid.Columns>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding EditCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </DataGrid>
+        </Border>
+        <Grid Grid.Row="1" Margin="0,10,0,0">
+            <uc:MyPopupBox x:Name="_uc" HorizontalAlignment="Left">
+                <Grid Width="550" Height="350">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.Resources>
+                        <Style TargetType="Label" BasedOn="{StaticResource LabelBaseStyle}">
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                        </Style>
+                        <Style TargetType="Border" BasedOn="{StaticResource ButtonBorderStyle}">
+                            <Setter Property="BorderBrush" Value="Black"/>
+                            <Setter Property="Height" Value="40"/>
+                        </Style>
+                        <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxBaseStyle}">
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="Margin" Value="10,0,10,0"/>
+                        </Style>
+                        <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+                            <Setter Property="FontSize" Value="18"/>
+                        </Style>
+                    </Grid.Resources>
+                    <Grid Grid.Row="0" Height="40">
+                        <Label Content="Thêm thông tin khách hàng" HorizontalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Row="1" Margin="10,10,30,20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0" Grid.Row="0" Content="Tên khách hàng"/>
+                            <Border Grid.Column="1" Grid.Row="0">
+                                <TextBox Text="{Binding NewItem.Name}"/>
+                            </Border>
+                            <Label Grid.Column="0" Grid.Row="1" Content="Giới tính"/>
+                            <Border Grid.Column="1" Grid.Row="1">
+                                <ComboBox IsEditable="False" Text="{Binding NewItem.Sex}" ItemsSource="{Binding SexType, Source={StaticResource LogicData}}"/>
+                            </Border>
+                            <Label Grid.Column="0" Grid.Row="2" Content="Số điện thoại"/>
+                            <Border Grid.Column="1" Grid.Row="2">
+                                <TextBox Text="{Binding NewItem.Phone}"/>
+                            </Border>
+                            <Label Grid.Column="0" Grid.Row="3" Content="Địa chỉ"/>
+                            <Border Grid.Column="1" Grid.Row="3">
+                                <TextBox Text="{Binding NewItem.Address}"/>
+                            </Border>
+                        </Grid>
+                        <Grid Grid.Row="1" Margin="0,10,0,0">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <StackPanel.Resources>
+                                    <Style TargetType="Button" BasedOn="{StaticResource ButtonBaseStyle}">
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </Style>
+                                </StackPanel.Resources>
+                                <Border>
+                                    <Button Content="Nhập lại" Command="{Binding ClearCommand}"/>
+                                </Border>
+                                <Border Margin="10,0,0,0">
+                                    <Button Content="Thêm" Command="{Binding AddCommand}"/>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </uc:MyPopupBox>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <StackPanel.Resources>
+                    <Style TargetType="Border" BasedOn="{StaticResource ButtonBorderStyle}"/>
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonBaseStyle}"/>
+                </StackPanel.Resources>
+                <Border>
+                    <Button Content="Sửa" Command="{Binding EditCommand}"/>
+                </Border>
+                <Border Margin="10,0,0,0">
+                    <Button Content="Xóa" Command="{Binding DeleteCommand}"/>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

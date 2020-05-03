@@ -1,0 +1,22 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:BookStore_Management.ResourceDictionary"
+                    xmlns:root="clr-namespace:BookStore_Management"
+                    xmlns:viewmodel="clr-namespace:BookStore_Management.ViewModel"
+                    xmlns:ks="clr-namespace:BookStore_Management.ViewModel.KhoSach"
+                    xmlns:tk="clr-namespace:BookStore_Management.ViewModel.TaiKhoan">
+
+    <viewmodel:MainViewModel x:Key="MainVM"/>
+    <viewmodel:LoginViewModel x:Key="LoginVM"/>
+    <viewmodel:NhaSachPageViewModel x:Key="NhaSachPageVM"/>
+    <viewmodel:LichSuBanPageViewModel x:Key="LichSuBanPageVM"/>
+    <viewmodel:KhachHangPageViewModel x:Key="KhachHangPageVM"/>
+    <ks:KhoSachPageViewModel x:Key="KhoSachVM"/>
+    <ks:ThongTin_KSViewModel x:Key="ThongTin_KSVM"/>
+    <ks:NhapKho_KSViewModel x:Key="NhapKho_KSVM"/>
+    <ks:XuatKho_KSViewModel x:Key="XuatKho_KSVM"/>
+    <tk:TaiKhoanPageViewModel x:Key="TaiKhoanVM"/>
+    <tk:ThongTin_TKViewModel x:Key="ThongTin_TKVM"/>
+    <tk:QuanLy_TKViewModel x:Key="QuanLy_TKVM"/>
+    <root:LogicData x:Key="LogicData"/>
+</ResourceDictionary>

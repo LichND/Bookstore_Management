@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="BookStore_Management.UC.MyPopupBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookStore_Management.UC"
+             Width="40" Height="40"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d">
+    
+    <Grid>
+        <materialDesign:PopupBox IsPopupOpen="{Binding ElementName=_PopupBox, Path=IsPopupOpen, Mode=TwoWay}" Margin="0,-15,0,15" PlacementMode="TopAndAlignLeftEdges" Foreground="{x:Null}" StaysOpen="True">
+            <Grid x:Name="_Children"/>
+        </materialDesign:PopupBox>
+        <Border BorderBrush="Black" BorderThickness="2" CornerRadius="20"/>
+        <materialDesign:PackIcon Kind="Add" RenderTransformOrigin="0.5,0.5">
+            <materialDesign:PackIcon.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform x:Name="_Angle" Angle="0"/>
+                </TransformGroup>
+            </materialDesign:PackIcon.RenderTransform>
+        </materialDesign:PackIcon>
+        <materialDesign:PopupBox x:Name="_PopupBox" Foreground="Transparent" StaysOpen="True" Opened="PopupBox_IsPopupOpenChange" Closed="PopupBox_IsPopupOpenChange"/>
+    </Grid>
+</UserControl>

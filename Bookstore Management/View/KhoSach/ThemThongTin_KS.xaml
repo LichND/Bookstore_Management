@@ -1,0 +1,167 @@
+﻿<Window x:Class="BookStore_Management.View.KhoSach.ThemThongTin_KS"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookStore_Management.View.KhoSach"
+        xmlns:root="clr-namespace:BookStore_Management"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:uc="clr-namespace:BookStore_Management.UC"
+        mc:Ignorable="d"
+        TextElement.FontFamily="Microsoft Sans Serif" TextElement.FontSize="18"
+        WindowStyle="None" WindowStartupLocation="CenterScreen" AllowsTransparency="True" 
+        x:Name="_ThemThongTin_KS" Width="910" Height="565">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding SetParentCommand}" CommandParameter="{Binding ElementName=_ThemThongTin_KS}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Window.Resources>
+        <root:Null2Visibility x:Key="VisibiliityConverter"/>
+        <root:Money2String x:Key="MoneyConverter"/>
+        <root:Zero2Null x:Key="NumberConverter"/>
+    </Window.Resources>
+
+    <Border Style="{StaticResource GlobalBorderStyle}">
+        <Grid>
+            <Grid.Resources>
+                <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxContentStyle}">
+                    <Setter Property="Height" Value="Auto"/>
+                </Style>
+                <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockBaseStyle}"/>
+                <Style TargetType="Label" BasedOn="{StaticResource LabelBaseStyle}"/>
+                <Style TargetType="Border" BasedOn="{StaticResource SmokeBorderStyle}"/>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <uc:ControlBar Grid.Row="0" Title="Thêm sách" IsHaveBack="True" IsHaveMaximize="False"/>
+            <Grid Grid.Row="1" Margin="35">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="225"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Stretch="Fill" Source="/BookStore Management;component/Images/DefaultBook.png"/>
+                    <Image Grid.Column="0" Stretch="Fill" Source="{Binding book.Image, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Border Grid.Column="0" Width="80" Height="80" CornerRadius="40" BorderThickness="4" Background="Transparent">
+                        <Button Style="{StaticResource FakeEllipseButton}" Command="{Binding AddPictureCommand}">
+                            <materialDesign:PackIcon Kind="Add" Width="50" Height="50"/>
+                        </Button>
+                    </Border>
+                    <Grid Grid.Column="0" VerticalAlignment="Bottom" Background="#54FFFFFF" Height="30">
+                        <TextBox Text="{Binding book.Cost, Converter={StaticResource MoneyConverter}, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center" materialDesign:HintAssist.Hint="Giá bán"/>
+                    </Grid>
+                    <Grid Grid.Column="1" Margin="10,0,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0">
+                            <StackPanel>
+                                <Grid>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border Style="{StaticResource ChildrenContent}"/>
+                                        <TextBox Text="{Binding book.BookName, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Tên sách"/>
+                                        <Label Content="−"/>
+                                        <TextBox Text="{Binding book.Author, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Tên tác giả"/>
+                                    </StackPanel>
+                                    <TextBlock HorizontalAlignment="Right">
+                                        <Run Text="ID:"/>
+                                        <Run Text="{Binding book.ID}"/>
+                                    </TextBlock>
+                                </Grid>
+                                <Grid>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="NXB:"/>
+                                        <TextBox Text="{Binding book.PublishingCompany, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Tên nhà xuất bản"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <Label Content="Năm xuất bản:"/>
+                                        <TextBox Text="{Binding book.Year, Converter={StaticResource NumberConverter}, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Năm"/>
+                                    </StackPanel>
+                                </Grid>
+                                <StackPanel Margin="0,5,0,0">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="75" MinHeight="40">
+                                        <WrapPanel x:Name="_Categories">
+                                            <WrapPanel.Resources>
+                                                <Style TargetType="materialDesign:Chip">
+                                                    <Setter Property="IsDeletable" Value="True"/>
+                                                    <Setter Property="FontSize" Value="16"/>
+                                                    <Setter Property="Background" Value="#34FFFFFF"/>
+                                                    <Setter Property="Margin" Value="5,0,0,5"/>
+                                                    <Setter Property="DeleteCommand" Value="{Binding ChipDeleteClick}"/>
+                                                    <Setter Property="DeleteCommandParameter" Value="{Binding RelativeSource={RelativeSource Self}}"/>
+                                                </Style>
+                                            </WrapPanel.Resources>
+                                            <Label Content="Thể loại:" Height="40" VerticalContentAlignment="Center"/>
+                                        </WrapPanel>
+                                    </ScrollViewer>
+                                    <ComboBox x:Name="_AddChip" materialDesign:HintAssist.Hint="Nhập thể loại, sau đó Enter" Margin="17,5,17,0" BorderBrush="{x:Null}" Cursor="IBeam" ItemsSource="{Binding Categories, Source={StaticResource LogicData}}" DropDownOpened="AddChip_DropDownOpened">
+                                        <ComboBox.InputBindings>
+                                            <KeyBinding Key="Return" Command="{Binding AddChipCommand}" CommandParameter="{Binding ElementName=_AddChip}"/>
+                                        </ComboBox.InputBindings>
+                                    </ComboBox>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Row="1" Margin="0,5,0,5">
+                            <TextBox Height="Auto" Text="{Binding book.Summary, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Tóm tắt sách" VerticalContentAlignment="Top"  HorizontalContentAlignment="Left" TextWrapping="Wrap" AcceptsReturn="True"/>
+                        </Border>
+                        <Border Grid.Row="2">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal" Height="40">
+                                    <Border Style="{StaticResource ChildrenContent}"/>
+                                    <Label Content="Kho"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <StackPanel.Resources>
+                                        <Style TargetType="Grid">
+                                            <Setter Property="MinWidth" Value="40"/>
+                                        </Style>
+                                    </StackPanel.Resources>
+                                    <Label Content="Giá gốc:" Margin="15,0,0,0"/>
+                                    <TextBox Text="{Binding book.DefCost, Converter={StaticResource MoneyConverter}, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Giá gốc"/>
+                                    <Grid/>
+                                    <TextBlock>
+                                        <Run Text="Đã bán:"/>
+                                        <Run Text="{Binding book.Sold}"/>
+                                    </TextBlock>
+                                    <Grid/>
+                                    <TextBlock>
+                                        <Run Text="Còn tồn:"/>
+                                        <Run Text="{Binding book.Inventory}"/>
+                                    </TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Grid>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                    <StackPanel.Resources>
+                        <Style TargetType="Border" BasedOn="{StaticResource ButtonBorderStyle}">
+                            <Setter Property="Margin" Value="10,0,0,0"/>
+                        </Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource ButtonBaseStyle}"/>
+                    </StackPanel.Resources>
+                    <Border>
+                        <Button Content="Đồng ý" Command="{Binding OKCommand}" ToolTip="{Binding Notify}" ToolTipService.ShowOnDisabled="True"/>
+                    </Border>
+                    <Border>
+                        <Button x:Name="_Reset_Cancel" Content="Nhập lại" Command="{Binding ResetCommand}"/>
+                    </Border>
+                </StackPanel>
+            </Grid>
+
+        </Grid>
+    </Border>
+</Window>

@@ -1,0 +1,63 @@
+﻿<Page x:Class="BookStore_Management.View.KhoSach.ThongTin_KS"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookStore_Management.View.KhoSach"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      mc:Ignorable="d" 
+      DataContext="{StaticResource ThongTin_KSVM}"
+      TextElement.FontFamily="Microsoft Sans Serif" TextElement.FontSize="18"
+      x:Name="_ThongTin_KS">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding SetParentCommand}" CommandParameter="{Binding ElementName=_ThongTin_KS}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Style="{StaticResource SmokeBorderStyle}" Padding="5">
+            <DataGrid ItemsSource="{Binding Datas}" SelectedIndex="{Binding SelectedIndex}" SelectedItem="{Binding SelectedItem}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding ID}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Tên sách" Binding="{Binding BookName}"/>
+                    <DataGridTextColumn Header="Thể loại chính" Binding="{Binding MainGenre}"/>
+                    <DataGridTextColumn Header="Đã bán" Binding="{Binding Sold}"/>
+                    <DataGridTextColumn Header="Tồn kho" Binding="{Binding Inventory}"/>
+                    <DataGridTextColumn Header="Giá nhập" Binding="{Binding DefCost}"/>
+                    <DataGridTextColumn Header="Giá xuất" Binding="{Binding Cost}"/>
+                </DataGrid.Columns>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding EditCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </DataGrid>
+        </Border>
+        <Grid Grid.Row="1" Margin="0,10,0,0">
+            <Border Width="40" Height="40" CornerRadius="20" HorizontalAlignment="Left" Style="{StaticResource BorderBaseStyle}" BorderBrush="Black" BorderThickness="2">
+                <Button Style="{StaticResource FakeEllipseButton}" Command="{Binding AddCommand}">
+                    <materialDesign:PackIcon Kind="Add"/>
+                </Button>
+            </Border>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <StackPanel.Resources>
+                    <Style TargetType="Border" BasedOn="{StaticResource ButtonBorderStyle}"/>
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonBaseStyle}"/>
+                </StackPanel.Resources>
+                <Border>
+                    <Button Content="Sửa" Command="{Binding EditCommand}"/>
+                </Border>
+                <Border Margin="10,0,0,0">
+                    <Button Content="Xóa" Command="{Binding DeleteCommand}"/>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

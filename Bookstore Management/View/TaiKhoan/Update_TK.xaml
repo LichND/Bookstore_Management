@@ -1,0 +1,75 @@
+﻿<Window x:Class="BookStore_Management.View.TaiKhoan.Update_TK"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookStore_Management.View.TaiKhoan"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:uc="clr-namespace:BookStore_Management.UC"
+        mc:Ignorable="d" Width="550" Height="340" WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterScreen"
+        TextElement.FontSize="18" TextElement.FontFamily="Microsoft Sans Serif"
+        x:Name="_Sua_TK">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding SetParentCommand}" CommandParameter="{Binding ElementName=_Sua_TK}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <materialDesign:Card VerticalAlignment="Stretch">
+        <materialDesign:Card.Resources>
+            <Style TargetType="Label" BasedOn="{StaticResource LabelBaseStyle}">
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+            </Style>
+        </materialDesign:Card.Resources>
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="Cập nhật tài khoản" Style="{StaticResource LabelBaseStyle}"/>
+            <Grid Grid.Row="1" Margin="0,10,0,10">
+                <Grid.Resources>
+                    <Style TargetType="Border" BasedOn="{StaticResource ButtonBorderStyle}"/>
+                    <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxBaseStyle}"/>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Tên người dùng:"/>
+                <uc:WarningTextBox Grid.Row="0" Grid.Column="1" Text="{Binding User.NickName, Mode=TwoWay}" Warning="{Binding WarningNickname, Mode=TwoWay}"/>
+                <Label Grid.Row="1" Grid.Column="0" Content="Giới tính:"/>
+                <Border Grid.Row="1" Grid.Column="1">
+                    <ComboBox ItemsSource="{Binding SexType, Source={StaticResource LogicData}}" Text="{Binding User.Sex, Mode=TwoWay}"/>
+                </Border>
+                <Label Grid.Row="2" Grid.Column="0" Content="Số điện thoại:"/>
+                <uc:WarningTextBox Grid.Row="2" Grid.Column="1" Text="{Binding User.Phone, Mode=TwoWay}" Warning="{Binding WarningPhone, Mode=TwoWay}"/>
+                <Label Grid.Row="3" Grid.Column="0" Content="Địa chỉ:"/>
+                <uc:WarningTextBox Grid.Row="3" Grid.Column="1" Text="{Binding User.Address, Mode=TwoWay}" Warning="{Binding WarningAddress, Mode=TwoWay}"/>
+            </Grid>
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+                <StackPanel.Resources>
+                    <Style TargetType="Border" BasedOn="{StaticResource ButtonBorderStyle}">
+                        <Setter Property="Margin" Value="10,0,0,0"/>
+                    </Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ButtonBaseStyle}"/>
+                </StackPanel.Resources>
+                <Border>
+                    <Button Content="Cập nhật" Command="{Binding OKCommand}"/>
+                </Border>
+                <Border>
+                    <Button Content="Hủy" Command="{Binding CancelCommand}"/>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </materialDesign:Card>
+</Window>

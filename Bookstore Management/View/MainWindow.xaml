@@ -1,0 +1,100 @@
+﻿<Window x:Class="BookStore_Management.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookStore_Management.View"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:uc="clr-namespace:BookStore_Management.UC"
+        mc:Ignorable="d"
+        TextElement.FontFamily="Microsoft Sans Serif" TextElement.FontSize="18"
+        WindowStyle="None" AllowsTransparency="True" Background="{x:Null}" WindowStartupLocation="CenterScreen"
+        DataContext="{StaticResource MainVM}"
+        x:Name="_MainWindow"
+        Title="MainWindow" Height="720" Width="1320">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding SetParentCommand}" CommandParameter="{Binding ElementName=_MainWindow}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <Border Style="{StaticResource GlobalBorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <uc:ControlBar Grid.Row="0" Title="Phần mềm quản lý nhà sách" IsHaveBack="True">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel.Resources>
+                            <Style TargetType="Label" BasedOn="{StaticResource LabelBaseStyle}">
+                                <Setter Property="FontSize" Value="14"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <Label Content="Xin chào"/>
+                        <Grid>
+                            <Label Content="{Binding User.NickName, Source={StaticResource MainVM}}" Foreground="BlueViolet"/>
+                            <materialDesign:PopupBox Width="Auto" Foreground="{x:Null}" HorizontalAlignment="Stretch" PlacementMode="BottomAndAlignRightEdges">
+                                <Grid>
+                                    <StackPanel>
+                                        <StackPanel.Resources>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Background" Value="Transparent"/>
+                                                <Setter Property="BorderThickness" Value="0"/>
+                                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                                <Setter Property="Padding" Value="10,5,10,5"/>
+                                            </Style>
+                                        </StackPanel.Resources>
+                                        <Grid Height="80">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="80"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Grid.Column="0" Width="60" Height="60" Source="/BookStore Management;component/Images/DefaultUser.png" Stretch="Fill"/>
+                                            <Image Grid.Column="0" Width="60" Height="60" Source="{Binding User.Avatar, Source={StaticResource MainVM}}" Stretch="Fill"/>
+                                            <Grid Grid.Column="1" Height="60">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition/>
+                                                    <RowDefinition/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.Resources>
+                                                    <Style TargetType="Label">
+                                                        <Setter Property="Padding" Value="0,0,10,0"/>
+                                                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                                    </Style>
+                                                </Grid.Resources>
+                                                <Label Grid.Row="1" Content="{Binding User.NickName, Source={StaticResource MainVM}}"/>
+                                                <Label Grid.Row="0" Content="{Binding User.Username, Source={StaticResource MainVM}}"/>
+                                            </Grid>
+                                        </Grid>
+                                        <Rectangle Stroke="DarkGray"/>
+                                        <Button Content="Thông tin tài khoản" Command="{Binding InfoCommand, Source={StaticResource MainVM}}"/>
+                                        <Button Content="Đăng xuất" Command="{Binding LogoutCommand, Source={StaticResource MainVM}}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </materialDesign:PopupBox>
+                        </Grid>
+                    </StackPanel>
+                </uc:ControlBar>
+                <Grid Grid.Row="1" Margin="35,0,35,35">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <uc:MyMenuBar x:Name="_uc" Grid.Column="0">
+                        <Button Content="Nhà sách" Command="{Binding NhaSachShowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
+                        <Button Content="Lịch sử bán" Command="{Binding LichSuBanShowCommand}"/>
+                        <Button Content="Kho sách" Command="{Binding KhoSachShowCommand}"/>
+                        <Button Content="Khách hàng" Command="{Binding KhachHangShowCommand}"/>
+                        <Button Content="Tài khoản" Command="{Binding TaiKhoanShowCommand}"/>
+                    </uc:MyMenuBar>
+                    <Frame Grid.Row="2" Content="{Binding ContentZone, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+            </Grid>
+        </Border>
+        <Grid Style="{StaticResource LostForcusFadedGrid}"/>
+    </Grid>
+</Window>
