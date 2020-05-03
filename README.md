@@ -1,4 +1,4 @@
-<h1>1. Giới thiệu Đồ án NMCNPM - Quản lý Nhà sách</h1>
+<h1>1. Giới thiệu Đồ án công nghệ .NET - Quản lý Nhà sách</h1>
 
 
 Việc quản lý sách ở nhà sách hiện nay nếu làm thủ công phải cần tới khá nhiều nhân lức để thực hiện các nghiệp vụ như kiểm kê sách, tạo lập hóa đơn, báo cáo thu chi, …, một số nghiệp vụ như tìm kiếm, thống kê khi thực hiện khá vất vả. Trong khi đó, các nghiệp vụ này đều có thể tin học hóa một cách dễ dàng, việc quản lý trở nên đơn giản và thuận tiện hơn rất nhiều.
