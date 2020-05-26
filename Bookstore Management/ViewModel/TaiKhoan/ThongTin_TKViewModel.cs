@@ -40,7 +40,7 @@ namespace BookStore_Management.ViewModel.TaiKhoan
         }
         private void Update()
         {
-            Update_TKViewModel SuaVM = new Update_TKViewModel() { User = User.Clone() as AccountData };
+            Update_TKViewModel SuaVM = new Update_TKViewModel() { User = User.Clone() };
             Update_TK sua_TK = new Update_TK() { DataContext = SuaVM };
             sua_TK.ShowDialog();
             if (SuaVM.Message.Type == Message.MessageType.OK)

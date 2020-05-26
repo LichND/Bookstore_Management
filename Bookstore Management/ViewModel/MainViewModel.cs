@@ -29,10 +29,9 @@ namespace BookStore_Management.ViewModel
         public ICommand TaiKhoanShowCommand { get; set; }
         #endregion
         #region get set
-        private static AccountData _User = null;
+        public static AccountData GetCurentUser => System.Threading.Thread.CurrentPrincipal.Identity as AccountData;
         private int _SeletedMenuItem = 0;
-        public AccountData User { get => _User; set { _User = value; OnPropertyChange(); } }
-        public static AccountData GetCurentUser { get => _User; }
+        public AccountData User { get => System.Threading.Thread.CurrentPrincipal.Identity as AccountData; set { System.Threading.Thread.CurrentPrincipal = value.Principal; OnPropertyChange(); } }
         public int SeletedMenuItem { get => _SeletedMenuItem; set { _SeletedMenuItem = value; OnPropertyChange(); } }
         #endregion
         private MainWindow Host { get => base.Parent as MainWindow; set => base.Parent = value; }
@@ -51,15 +50,15 @@ namespace BookStore_Management.ViewModel
         {
             ContentZone = NhaSachPage;
 
-            SetParentCommand = new RelayCommand<MainWindow>(p => { return Host is null; }, p => { Host = p; LogicData.Load(); });
+            SetParentCommand = new RelayCommand<MainWindow>(p => { return Host is null; }, p => { Host = p; LogicData.LoadDataAsync(); });
             InfoCommand = new RelayCommand<object>(p => { return true; }, p => { ShowInfoTK(); });
             LogoutCommand = new RelayCommand<FrameworkElement>(p => { return true; }, p => { Message = new Message(Message.MessageType.Logout); Host.Hide(); });
 
-            NhaSachShowCommand = new RelayCommand<object>(p => { return true; }, p => { ContentZone = NhaSachPage; });
-            LichSuBanShowCommand = new RelayCommand<object>(p => { return true; }, p => { if (LichSuBanPage is null) LichSuBanPage = new LichSuBanPage(); ContentZone = LichSuBanPage; });
-            KhoSachShowCommand = new RelayCommand<object>(p => { return User.IDType == 0 || User.IDType == 2; }, p => { if (KhoSachPage is null) KhoSachPage = new KhoSachPage(); ContentZone = KhoSachPage; });
-            KhachHangShowCommand = new RelayCommand<object>(p => { return User.IDType != 2; }, p => { if (KhachHangPage is null) KhachHangPage = new KhachHangPage(); ContentZone = KhachHangPage; });
-            TaiKhoanShowCommand = new RelayCommand<object>(p => { return true; }, p => { if (TaiKhoanPage is null) TaiKhoanPage = new TaiKhoanPage(); ContentZone = TaiKhoanPage; });
+            NhaSachShowCommand = new RelayCommand<object>(p => { return System.Threading.Thread.CurrentPrincipal.IsInRole("Xem nhà sách"); }, p => { ContentZone = NhaSachPage; });
+            LichSuBanShowCommand = new RelayCommand<object>(p => { return System.Threading.Thread.CurrentPrincipal.IsInRole("Xem lịch sử bán"); }, p => { if (LichSuBanPage is null) LichSuBanPage = new LichSuBanPage(); ContentZone = LichSuBanPage; });
+            KhoSachShowCommand = new RelayCommand<object>(p => { return System.Threading.Thread.CurrentPrincipal.IsInRole("Xem kho sách"); }, p => { if (KhoSachPage is null) KhoSachPage = new KhoSachPage(); ContentZone = KhoSachPage; });
+            KhachHangShowCommand = new RelayCommand<object>(p => { return System.Threading.Thread.CurrentPrincipal.IsInRole("Xem khách hàng"); }, p => { if (KhachHangPage is null) KhachHangPage = new KhachHangPage(); ContentZone = KhachHangPage; });
+            TaiKhoanShowCommand = new RelayCommand<object>(p => { return System.Threading.Thread.CurrentPrincipal.IsInRole("Xem tài khoản"); }, p => { if (TaiKhoanPage is null) TaiKhoanPage = new TaiKhoanPage(); ContentZone = TaiKhoanPage; });
         }
 
         public void ResetCache()

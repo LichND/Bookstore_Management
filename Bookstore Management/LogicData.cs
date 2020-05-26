@@ -10,15 +10,121 @@ namespace BookStore_Management
 {
     public class LogicData
     {
-        public static List<string> AccountType { get; private set; }
-        public static List<string> SexType { get; private set; }
-        public static List<string> NickName { get; private set; }
-        public static List<string> Categories { get; private set; }
-        public static List<string> Books { get; private set; }
-        public static ObservableCollection<BookData> AllBooks { get; private set; }
-        public static List<string> Customers { get; private set; }
-        public static ObservableCollection<CustomerData> AllCustomers { get; private set; }
-        public static ObservableCollection<BillData> AllBill { get; private set; }
+        private static List<string> _AccountType = null;
+        private static List<string> _SexType = null;
+        private static List<string> _NickName = null;
+        private static List<string> _Categories = null;
+        private static List<string> _Books = null;
+        private static ObservableCollection<BookData> _AllBooks = null;
+        private static List<string> _Customers = null;
+        private static ObservableCollection<CustomerData> _AllCustomers = null;
+        private static ObservableCollection<BillData> _AllBill = null;
+        public static List<string> AccountType
+        {
+            get
+            {
+                if (_AccountType is null)
+                    _AccountType = SQLiteDataAccess<string>.Select("SELECT Translate FROM LoaiTaiKhoan");
+                return _AccountType;
+            }
+        }
+        public static List<string> SexType
+        {
+            get
+            {
+                if (_SexType is null)
+                    SQLiteDataAccess<string>.Select("SELECT Type FROM GioiTinh");
+                return _SexType;
+            }
+        }
+        public static List<string> NickName
+        {
+            get
+            {
+                if (_NickName is null)
+                    _NickName = SQLiteDataAccess<string>.Select("SELECT Nickname FROM TaiKhoan");
+                return _NickName;
+            }
+        }
+        public static List<string> Categories
+        {
+            get
+            {
+                if (_Categories is null)
+                    _Categories = SQLiteDataAccess<string>.Select("SELECT Tag FROM TheLoai");
+                return _Categories;
+            }
+        }
+        public static List<string> Books
+        {
+            get
+            {
+                if (_Books is null)
+                    _Books = SQLiteDataAccess<string>.Select("SELECT BookName FROM Book");
+                return _Books;
+            }
+        }
+        public static ObservableCollection<BookData> AllBooks
+        {
+            get
+            {
+                if (_AllBooks is null)
+                {
+                    _AllBooks = SQLiteDataAccess<BookData>.Select("SELECT * FROM Book").ToObservableCollection();
+                    foreach (BookData item in _AllBooks)
+                        item.Categoties = SQLiteDataAccess<string>.Select($"SELECT TAG FROM CTTHELOAI JOIN THELOAI ON CTTHELOAI.IDTheLoai=THELOAI.ID WHERE CTTheLoai.IDBook={item.ID}");
+                }
+                return _AllBooks;
+            }
+        }
+        public static List<string> Customers
+        {
+            get
+            {
+                if (_Customers is null)
+                    _Customers = SQLiteDataAccess<string>.Select("SELECT Name FROM KhachHang");
+                return _Customers;
+            }
+        }
+        public static ObservableCollection<CustomerData> AllCustomers
+        {
+            get
+            {
+                if (_AllCustomers is null)
+                    _AllCustomers = SQLiteDataAccess<CustomerData>.Select("SELECT * FROM KhachHang").ToObservableCollection();
+                return _AllCustomers;
+            }
+        }
+        public static ObservableCollection<BillData> AllBill
+        {
+            get
+            {
+                if (_AllBill is null)
+                {
+                    _AllBill = SQLiteDataAccess<BillData>.Select("SELECT * FROM HoaDon").ToObservableCollection();
+                    foreach (var item in AllBill)
+                        item.Datas = SQLiteDataAccess<BillInfo>.Select("SELECT * FROM CTHoaDon WHERE IDHoaDon=" + item.ID);
+                }
+                return _AllBill;
+            }
+        }
+
+        public static async void LoadDataAsync()
+        {
+            await Task.WhenAll(new Task[]
+            {
+                new Task(() => { var tmp = AccountType; }),
+                new Task(() => { var tmp = SexType; }),
+                new Task(() => { var tmp = NickName; }),
+                new Task(() => { var tmp = Categories; }),
+                new Task(() => { var tmp = Books; }),
+                new Task(() => { var tmp = AllBooks; }),
+                new Task(() => { var tmp = Customers; }),
+                new Task(() => { var tmp = AllCustomers; }),
+                new Task(() => { var tmp = AllBill; }),
+            });
+        }
+
 
         public static int NextID(string table)
         {
@@ -32,29 +138,6 @@ namespace BookStore_Management
                 return "NULL";
             else
                 return '\"' + src + '\"';
-        }
-        public static void Load()
-        {
-            MyBackgroundWorker worker = new MyBackgroundWorker();
-            worker.DoWork += LoadWorker_DoWork;
-            worker.RunWorkerAsync();
-        }
-
-        private static void LoadWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-            AccountType = SQLiteDataAccess<string>.Select("SELECT Translate FROM LoaiTaiKhoan");
-            SexType = SQLiteDataAccess<string>.Select("SELECT Type FROM GioiTinh");
-            NickName = SQLiteDataAccess<string>.Select("SELECT Nickname FROM TaiKhoan");
-            Categories = SQLiteDataAccess<string>.Select("SELECT Tag FROM TheLoai");
-            Books = SQLiteDataAccess<string>.Select("SELECT BookName FROM Book");
-            AllBooks = SQLiteDataAccess<BookData>.Select("SELECT * FROM Book").ToObservableCollection();
-            foreach (var item in AllBooks)
-                item.Categoties = SQLiteDataAccess<string>.Select("SELECT TAG FROM CTTHELOAI JOIN THELOAI ON CTTHELOAI.IDTheLoai=THELOAI.ID WHERE CTTheLoai.IDBook=" + item.ID);
-            Customers = SQLiteDataAccess<string>.Select("SELECT Name FROM KhachHang");
-            AllCustomers = SQLiteDataAccess<CustomerData>.Select("SELECT * FROM KhachHang").ToObservableCollection();
-            AllBill = SQLiteDataAccess<BillData>.Select("SELECT * FROM HoaDon").ToObservableCollection();
-            foreach (var item in AllBill)
-                item.Datas = SQLiteDataAccess<BillInfo>.Select("SELECT * FROM CTHoaDon WHERE IDHoaDon=" + item.ID);
         }
     }
     public static class ExtensionMethodClass

@@ -60,7 +60,7 @@ namespace BookStore_Management.ViewModel.KhoSach
         }
         protected override void Add(object p)
         {
-            NewItem.IDManage = MainViewModel.GetCurentUser.ID;
+            NewItem.IDManage = (System.Threading.Thread.CurrentPrincipal.Identity as AccountData).ID;
             SQLiteDataAccess.Insert("XuatKho", NewItem);
             SelectedItem = NewItem;
             base.Add(p);

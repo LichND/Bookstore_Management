@@ -99,7 +99,7 @@ namespace BookStore_Management.ViewModel.TaiKhoan
         protected override void Edit(object p)
         {
             int index = Datas.IndexOf(SelectedItem);
-            Sua_QLTKViewModel SuaVM = new Sua_QLTKViewModel() { User = SelectedItem.Clone() as AccountData };
+            Sua_QLTKViewModel SuaVM = new Sua_QLTKViewModel() { User = SelectedItem.Clone() };
             Sua_QLTK sua = new Sua_QLTK() { DataContext = SuaVM };
             sua.ShowDialog();
             if (SuaVM.Message.Type == Message.MessageType.OK) 

@@ -32,7 +32,7 @@ namespace BookStore_Management.ViewModel.TaiKhoan
             ContentZone = ThongTin;
             SetParentCommand = new RelayCommand<TaiKhoanPage>(p => { return Host is null; }, p => { Host = p; });
             ThongTinShowCommand = new RelayCommand<object>(p => { return true; }, p => { ContentZone = ThongTin; });
-            QuanLyShowCommand = new RelayCommand<object>(p => { return (Application.Current.TryFindResource("MainVM") as MainViewModel).User.IDType < 2; }, p => { if (QuanLy is null) QuanLy = new QuanLy_TK(); ContentZone = QuanLy; });
+            QuanLyShowCommand = new RelayCommand<object>(p => { return System.Threading.Thread.CurrentPrincipal.IsInRole("Quản lý tài khoản"); }, p => { if (QuanLy is null) QuanLy = new QuanLy_TK(); ContentZone = QuanLy; });
         }
 
         public void ResetCache()

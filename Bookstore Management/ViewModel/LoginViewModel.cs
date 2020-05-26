@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Globalization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace BookStore_Management.ViewModel
 {
@@ -54,14 +56,30 @@ namespace BookStore_Management.ViewModel
         private static string LogFile { get; } = "./Log.ini";
         private void LoadLastWork()
         {
+            CultureInfo newCulture = (CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            newCulture.DateTimeFormat.ShortDatePattern = "MM-dd-yyyy";
+            newCulture.DateTimeFormat.DateSeparator = "-";
+            System.Threading.Thread.CurrentThread.CurrentCulture = newCulture;
+
+            if (!File.Exists("Database.db"))
+            {
+                File.Copy("../../Database.db", "Database.db");
+            }
+
+            if (!File.Exists("log.ini"))
+                return;
+
             try
             {
-                string[] tmp = File.ReadAllLines(LogFile);
-                Username = tmp[0].Replace(" ", "").Remove(0, 9);
-                Password = tmp[1].Replace(" ", "").Remove(0, 9);
+                BinaryFormatter formatter = new BinaryFormatter();
+                FileStream stream = new FileStream("log.ini", FileMode.Open);
+                LoginInfo info = formatter.Deserialize(stream) as LoginInfo;
+                stream.Close();
+                Username = info.Username;
                 Host._Password.Password = Password;
-                if (bool.Parse(tmp[2].Replace(" ", "").Remove(0, 9))) 
+                if (info.SavePass) 
                 {
+                    Password = info.Password;
                     ChangeCheckBox(Host._CheckBox);
                 }
             }
@@ -69,14 +87,11 @@ namespace BookStore_Management.ViewModel
         }
         private void SaveWork()
         {
-            string[] tmp = new string[3];
-            tmp[0] = "Username=" + Username;
-            if (IsRememberMeCheck)
-                tmp[1] = "Password=" + Password;
-            else
-                tmp[1] = "Pasword=";
-            tmp[2] = "Remember=" + IsRememberMeCheck.ToString();
-            File.WriteAllLines(LogFile, tmp);
+            LoginInfo info = new LoginInfo() { Username = Username, Password = Password, SavePass = IsRememberMeCheck };
+            FileStream stream = new FileStream("log.ini", FileMode.Create);
+            BinaryFormatter formatter = new BinaryFormatter();
+            formatter.Serialize(stream, info);
+            stream.Close();
         }
 
         private void ChangeCheckBox(Grid g)
@@ -156,8 +171,16 @@ namespace BookStore_Management.ViewModel
         }
         private AccountData AcceptAccount()
         {
-            string Query = "SELECT * FROM TaiKhoan WHERE Username = \"" + Username + "\" AND Password = \"" + Hash.FromString(Password) + '\"';
+            string Query = $"SELECT * FROM TaiKhoan WHERE Username = \"{Username}\" AND Password = \"{Hash.FromString(Password)}\"";
             return SQLiteDataAccess<AccountData>.Select1(Query);
+        }
+
+        [System.Serializable]
+        private class LoginInfo
+        {
+            public string Username { get; set; } = "";
+            public string Password { get; set; } = "";
+            public bool SavePass { get; set; } = false;
         }
     }
 }
