@@ -49,7 +49,7 @@ namespace BookStore_Management.ViewModel
             PasswordChangedCommand = new RelayCommand<PasswordBox>(p => { return true; }, p => { Password = p.Password; });
             WindowNomalSizeCommand = new RelayCommand<Window>(p => { return true; }, p => { if (p.WindowState==WindowState.Maximized) p.WindowState = WindowState.Normal; });
             ClosedCommand = new RelayCommand<object>(p => { return true; }, p => { MainWindow?.Close(); ResetCache(); SaveWork(); });
-            MoreInfoCommand = new RelayCommand<object>(p => { return true; }, p => { MainWindow.WindowState = WindowState.Minimized; System.Diagnostics.Process.Start("https://github.com/LichND/BookStore Management-MVVM"); });
+            MoreInfoCommand = new RelayCommand<object>(p => { return true; }, p => { MainWindow.WindowState = WindowState.Minimized; System.Diagnostics.Process.Start("https://github.com/LichND/Bookstore_Management"); });
         }
 
         private string lastwork = "";
