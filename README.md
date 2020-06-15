@@ -12,9 +12,9 @@ Yêu cầu:
 
 - Dapper Plugin (for SQLite)
 
-Để cài đặt, sử dụng git clone https://github.com/LichND/Bookstore-Management.git., hoặc dowload as ZIP tại URL này.
+Để cài đặt, sử dụng git clone https://github.com/LichND/Bookstore_Management.git., hoặc dowload as ZIP [tại đây](https://github.com/LichND/Bookstore_Management/archive/master.zip).
 
-Vì project khi tải về sẽ chưa build nên bạn cần build trước khi chạy thử phần mềm, file database.db sẽ nằm trong debug folder.
+Vì project khi tải về sẽ chưa build nên bạn cần build trước khi chạy thử phần mềm, file database.db mẫu sẽ nằm trong debug folder.
 
 <h1>3. Hướng dẫn sử dụng</h1>
 
@@ -37,3 +37,10 @@ Phần mềm sẽ có 4 quyền cho 4 loại người dùng với tài khoản v
 Sau khi đăng nhập thành công thì giao diện trang chủ sẽ hiện lên.
 
 ![m2](https://user-images.githubusercontent.com/43202025/60239101-b181ae00-98d6-11e9-8b18-ccc39d0bae93.png)
+
+<h1>3. Báo cáo chi tiết</h1>
+
+[Báo cáo.pdf](https://github.com/LichND/Bookstore_Management/files/4777796/Bao.cao.NMCNPM.pdf)
+
+<h1>3. Testcase</h1>
+[Testcase.xlsm](https://github.com/LichND/Bookstore_Management/raw/master/Bookstore%20Management/Testcase.xlsm)
