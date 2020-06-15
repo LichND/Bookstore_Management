@@ -161,7 +161,6 @@
                     </Border>
                 </StackPanel>
             </Grid>
-
         </Grid>
     </Border>
 </Window>

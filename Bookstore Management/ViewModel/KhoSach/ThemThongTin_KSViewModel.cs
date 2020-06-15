@@ -101,7 +101,7 @@ namespace BookStore_Management.ViewModel.KhoSach
             }
             if (book.DefCost?.ToLong() > book.Cost?.ToLong())
             {
-                Notify = "Giá bán phải nhỏ hơn hoặc bằng giá gốc";
+                Notify = "Giá bán phải lớn hơn hoặc bằng giá gốc";
                 return false;
             }
             Notify = null;

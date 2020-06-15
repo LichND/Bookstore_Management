@@ -20,6 +20,7 @@ namespace BookStore_Management.ViewModel
         #endregion
         public bool IsHaveBack { get; set; } = false;
         public bool IsHaveMaximize { get; set; } = true;
+        public bool IsHaveMinimize { get; set; } = true;
         public string Title { get; set; } = "Tiêu đề mặc định";
         public ControlBarViewModel()
         {

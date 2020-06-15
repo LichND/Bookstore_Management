@@ -76,10 +76,10 @@ namespace BookStore_Management.ViewModel
                 LoginInfo info = formatter.Deserialize(stream) as LoginInfo;
                 stream.Close();
                 Username = info.Username;
-                Host._Password.Password = Password;
                 if (info.SavePass) 
                 {
                     Password = info.Password;
+                    Host._Password.Password = Password;
                     ChangeCheckBox(Host._CheckBox);
                 }
             }

@@ -25,6 +25,7 @@ namespace BookStore_Management.UC
     {
         public bool IsHaveBack { get => ViewModel.IsHaveBack; set => ViewModel.IsHaveBack = value; }
         public bool IsHaveMaximize { get => ViewModel.IsHaveMaximize; set => ViewModel.IsHaveMaximize = value; }
+        public bool IsHaveMinimize { get => ViewModel.IsHaveMinimize; set => ViewModel.IsHaveMinimize = value; }
         public string Title { get => ViewModel?.Title; set => ViewModel.Title = value; }
         public Message Message { get => ViewModel?.Message; set => ViewModel.Message = value; }
         public UIElementCollection Children

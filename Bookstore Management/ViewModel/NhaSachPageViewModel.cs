@@ -103,7 +103,7 @@ namespace BookStore_Management.ViewModel
             AddBillCommand = new RelayCommand<object>(p => { return true; }, p => 
             {
                 View.KhachHang.ThemSua_KH themSua_KH = new View.KhachHang.ThemSua_KH();
-                KhachHang.ThemSua_KHViewModel themSua_KHVM = new KhachHang.ThemSua_KHViewModel() { Host = themSua_KH };
+                KhachHang.ThemSua_KHViewModel themSua_KHVM = new KhachHang.ThemSua_KHViewModel() { Host = themSua_KH, IsReadOnly = false };
                 themSua_KH.DataContext = themSua_KHVM;
                 themSua_KH.ShowDialog();
                 if (themSua_KHVM.Message.Type == Message.MessageType.OK) 
@@ -138,6 +138,8 @@ namespace BookStore_Management.ViewModel
                     Host._Bill.Children.Clear();
                     CartCount = 0;
                     Money = (Money)0;
+
+                    // MyMessageBox.Show("Thêm hóa đơn thành công", "Thông báo", false);
                 }
                 Host._popup.IsPopupOpen = false;
                 LoadBook();
@@ -148,10 +150,10 @@ namespace BookStore_Management.ViewModel
 
         private void LoadContentAdvanceMenu(StackPanel w)
         {
-            List<string> categogies = SQLiteDataAccess<string>.Select("SELECT Tag FROM TheLoai ORDER BY Tag");
+            List<string> categogies = SQLiteDataAccess<string>.Select("SELECT DISTINCT Tag FROM TheLoai ORDER BY Tag");
             foreach (var item in categogies)
                 AddCheckBox(w, "Thể loại", item);
-            List<int> year = SQLiteDataAccess<int>.Select("SELECT Year FROM Book ORDER BY Year");
+            List<int> year = SQLiteDataAccess<int>.Select("SELECT DISTINCT Year FROM Book ORDER BY Year");
             foreach (var item in year)
                 AddCheckBox(w, "Năm", item.ToString());
         }
@@ -181,8 +183,16 @@ namespace BookStore_Management.ViewModel
         {
             string Query = "SELECT * FROM Book";
             if (Search != "")
-                Query += " WHERE BookName LIKE '%" + Search + "%'";
+                Query += $" WHERE LOWER(BookName) LIKE '%{Search.ToLower()}%'";
             List<BookData> books = SQLiteDataAccess<BookData>.Select(Query);
+
+            // Find by ID
+            foreach (string item in Search.Split(' '))
+                if (item.Length > 0)
+                    foreach(BookData book in SQLiteDataAccess<BookData>.Select($"SELECT * FROM Book WHERE ID LIKE '%{item}%'"))
+                        if (!books.Exists(b => { return b.ID == book.ID; }))
+                            books.Add(book);            
+
             if (books is null)
                 return;
             BackgroundWorker tmp = sender as BackgroundWorker;
@@ -203,7 +213,7 @@ namespace BookStore_Management.ViewModel
                 if (advYear.Count > 0 && advYear.IndexOf(item.Year.ToString()) < 0)
                     continue;
                 tmp.ReportProgress(0, item);
-                System.Threading.Thread.Sleep(200);
+                System.Threading.Thread.Sleep(50);
             }
         }
         private void LoadBook()

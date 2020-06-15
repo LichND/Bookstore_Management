@@ -35,6 +35,7 @@ namespace BookStore_Management.Data
         private string _Address = "";
         private string _AvatarEncode = "";
         private BitmapImage _Avatar;
+        private ClaimsPrincipal _Principal;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -55,7 +56,12 @@ namespace BookStore_Management.Data
 
         public ClaimsPrincipal Principal
         {
-            get => new GenericPrincipal(this, Support.GetRoles(this.IDType));
+            get
+            {
+                if (_Principal is null)
+                    _Principal = new GenericPrincipal(this, Support.GetRoles(this.IDType));
+                return _Principal;
+            }
         }
 
         public override string ToString()

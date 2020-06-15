@@ -34,7 +34,7 @@
         <TextBlock Grid.Column="1" Text="{Binding Title}" HorizontalAlignment="Center" FontSize="20"/>
         <Grid x:Name="_ContentChild" Grid.Column="2"/>
         <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="_" Command="{Binding MinimizeWindowCommand}" CommandParameter="{Binding ElementName=uc}"/>
+            <Button Content="_" Visibility="{Binding IsHaveMinimize, Converter={StaticResource VisibilityConverter}}" Command="{Binding MinimizeWindowCommand}" CommandParameter="{Binding ElementName=uc}"/>
             <Button Visibility="{Binding IsHaveMaximize, Converter={StaticResource VisibilityConverter}}" Command="{Binding MaximizeWindowCommand}" CommandParameter="{Binding ElementName=uc}">
                 <materialDesign:PackIcon Kind="WindowMaximize"/>
             </Button>

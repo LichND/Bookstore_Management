@@ -1,0 +1,38 @@
+﻿<Window x:Class="BookStore_Management.UC.MyMessageBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookStore_Management.UC"
+        xmlns:root="clr-namespace:BookStore_Management"
+        mc:Ignorable="d"
+        Width="450" Height="200"
+        WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterScreen">
+
+    <Border Style="{StaticResource GlobalBorderStyle}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <local:ControlBar x:Name="_Title" Grid.Row="0" IsHaveMaximize="False" IsHaveMinimize="False"/>
+            <TextBlock Grid.Row="1" Style="{StaticResource TextBlockBaseStyle}" TextAlignment="Center" FontSize="24" Margin="15,0" Text="{Binding Content}"/>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                <StackPanel.Resources>
+                    <Style TargetType="Button" BasedOn="{StaticResource MenuButtonStyle}"/>
+                    <Style TargetType="Border" BasedOn="{StaticResource ButtonBorderStyle}">
+                        <Setter Property="Margin" Value="0,10,10,10"/>
+                    </Style>
+                    <root:Bool2Visibility x:Key="VisibilityConverter"/>
+                </StackPanel.Resources>
+                <Border Visibility="{Binding IsHaveOK, Converter={StaticResource VisibilityConverter }}">
+                    <Button Content="Đồng ý" Command="{Binding OKCommand}" CommandParameter="{Binding ElementName=_Title, Path=DataContext}"/>
+                </Border>
+                <Border Visibility="{Binding IsHaveCancel, Converter={StaticResource VisibilityConverter }}">
+                    <Button Content="Hủy" Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=_Title, Path=DataContext}"/>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

@@ -33,7 +33,7 @@ namespace BookStore_Management
             get
             {
                 if (_SexType is null)
-                    SQLiteDataAccess<string>.Select("SELECT Type FROM GioiTinh");
+                    _SexType = SQLiteDataAccess<string>.Select("SELECT Type FROM GioiTinh");
                 return _SexType;
             }
         }

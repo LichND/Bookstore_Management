@@ -116,6 +116,9 @@
     <Compile Include="UC\MyMenuBar.xaml.cs">
       <DependentUpon>MyMenuBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UC\MyMessageBox.xaml.cs">
+      <DependentUpon>MyMessageBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UC\MyPopupBox.xaml.cs">
       <DependentUpon>MyPopupBox.xaml</DependentUpon>
     </Compile>
@@ -144,6 +147,7 @@
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MyMenyBarViewModel.cs" />
+    <Compile Include="ViewModel\MyMessageBoxViewModel.cs" />
     <Compile Include="ViewModel\NhaSachPageViewModel.cs" />
     <Compile Include="ViewModel\TaiKhoan\QuanLy_TKViewModel.cs" />
     <Compile Include="ViewModel\TaiKhoan\Sua_QLTKViewModel.cs" />
@@ -270,6 +274,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UC\MyMenuBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\MyMessageBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
