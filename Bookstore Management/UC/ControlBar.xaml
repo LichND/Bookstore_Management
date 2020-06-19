@@ -35,7 +35,7 @@
         <Grid x:Name="_ContentChild" Grid.Column="2"/>
         <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="_" Visibility="{Binding IsHaveMinimize, Converter={StaticResource VisibilityConverter}}" Command="{Binding MinimizeWindowCommand}" CommandParameter="{Binding ElementName=uc}"/>
-            <Button Visibility="{Binding IsHaveMaximize, Converter={StaticResource VisibilityConverter}}" Command="{Binding MaximizeWindowCommand}" CommandParameter="{Binding ElementName=uc}">
+            <Button x:Name="Maximize" Visibility="{Binding IsHaveMaximize, Converter={StaticResource VisibilityConverter}}" Command="{Binding MaximizeWindowCommand}" CommandParameter="{Binding ElementName=uc}">
                 <materialDesign:PackIcon Kind="WindowMaximize"/>
             </Button>
             <Button Content="X" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding ElementName=uc}"/>
