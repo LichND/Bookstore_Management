@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using BookStore_Management.UC;
 
 namespace BookStore_Management.ViewModel.KhoSach
 {
@@ -55,6 +56,7 @@ namespace BookStore_Management.ViewModel.KhoSach
                     Datas.Add(AddBookVM.book);
                     LogicData.Books.Add(AddBookVM.book.BookName);
                     AddBook = null;
+                    MyMessageBox.Show("Thêm sách thành công", "Thông báo", false);
                     break;
                 default:
                     break;
@@ -70,6 +72,7 @@ namespace BookStore_Management.ViewModel.KhoSach
             LogicData.Books.RemoveAt(index);
             //LogicData.AllBooks.RemoveAt(index);
             base.Delete(p);
+            MyMessageBox.Show("Xóa thành công", "Thông báo", false);
         }
         protected override void Edit(object p)
         {
@@ -105,6 +108,7 @@ namespace BookStore_Management.ViewModel.KhoSach
                 if (EditBookVM.book.Summary != SelectedItem.Summary)
                     SQLiteDataAccess.Update("Book", "Summary", EditBookVM.book.Summary, EditBookVM.book.ID);
                 Datas[Datas.IndexOf(SelectedItem)] = EditBookVM.book;
+                MyMessageBox.Show("Sửa thành công", "Thông báo", false);
             }
         }
 
@@ -117,6 +121,7 @@ namespace BookStore_Management.ViewModel.KhoSach
             int index = LogicData.AllBooks.IndexOf(book.BookName.FindBook());
             LogicData.Books.RemoveAt(index);
             LogicData.AllBooks.RemoveAt(index);
+            
         }
     }
 }
