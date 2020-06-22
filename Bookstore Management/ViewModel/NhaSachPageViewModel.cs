@@ -139,7 +139,7 @@ namespace BookStore_Management.ViewModel
                     CartCount = 0;
                     Money = (Money)0;
 
-                    // MyMessageBox.Show("Thêm hóa đơn thành công", "Thông báo", false);
+                    MyMessageBox.Show("Thêm hóa đơn thành công", "Thông báo", false);
                 }
                 Host._popup.IsPopupOpen = false;
                 LoadBook();

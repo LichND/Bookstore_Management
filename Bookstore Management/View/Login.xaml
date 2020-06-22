@@ -82,7 +82,7 @@
                         </StackPanel>
                         <Grid Grid.Row="3">
                             <Grid>
-                                <TextBox Text="{Binding Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Top" Style="{StaticResource WarningMessageTextBox}"/>
+                                <TextBox x:Name="Warning" Text="{Binding Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Top" Style="{StaticResource WarningMessageTextBox}"/>
                                 <Grid Background="Transparent"/>
                             </Grid>
                             <Grid VerticalAlignment="Bottom">

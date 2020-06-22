@@ -53,7 +53,7 @@
                     <Image Grid.Column="0" Stretch="Fill" Source="/BookStore Management;component/Images/DefaultBook.png"/>
                     <Image Grid.Column="0" Stretch="Fill" Source="{Binding book.Image, UpdateSourceTrigger=PropertyChanged}"/>
                     <Border Grid.Column="0" Width="80" Height="80" CornerRadius="40" BorderThickness="4" Background="Transparent">
-                        <Button Style="{StaticResource FakeEllipseButton}" Command="{Binding AddPictureCommand}">
+                        <Button x:Name="ChooseImageBtn" Style="{StaticResource FakeEllipseButton}" Command="{Binding AddPictureCommand}">
                             <materialDesign:PackIcon Kind="Add" Width="50" Height="50"/>
                         </Button>
                     </Border>

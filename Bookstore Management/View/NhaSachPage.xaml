@@ -76,7 +76,7 @@
                 <Button Content="Tìm kiếm" Style="{StaticResource ButtonBaseStyle}" Command="{Binding SearchCommand}" CommandParameter="{Binding ElementName=_SearchTextBox}"/>
             </Border>
             <Border Grid.Column="2" HorizontalAlignment="Right" Style="{StaticResource ButtonBorderStyle}">
-                <materialDesign:Badged HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BadgeBackground="Black" BadgeForeground="White" Badge="{Binding CartCount}">
+                <materialDesign:Badged Name="CreateBill" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BadgeBackground="Black" BadgeForeground="White" Badge="{Binding CartCount}">
                     <Grid>
                         <StackPanel Orientation="Horizontal">
                             <Label Content="Thêm hóa đơn" VerticalContentAlignment="Center"/>
