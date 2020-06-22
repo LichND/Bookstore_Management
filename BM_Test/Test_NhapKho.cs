@@ -167,7 +167,7 @@ namespace BM_Test
 
             rows = table.FindElementsByClassName("DataGridRow");
 
-            Assert.AreEqual(preCount, rows.Count);
+            Assert.AreEqual(preCount, rows.Count - 1);
         }
 
         [TestCleanup]

@@ -34,7 +34,7 @@ namespace BM_Test
 
         [TestMethod]
         [DataRow("100000", "Tiếng Việt 1", "Ban Biên Tập", "NXB Giao Duc", "2019", "S", "Sách Tiếng Việt cho học sinh lớp 1", "99000")]
-        public void Test_BookManager_Add(string d1, string d2, string d3, string d4, string d5, string d6, string d7, string d8)
+        public void Test_BookManager_1_Add(string d1, string d2, string d3, string d4, string d5, string d6, string d7, string d8)
         {
             var img = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Images\tieng-viet-1.jpg");
             var menubar = header.FindElementByClassName("MyMenuBar");
@@ -73,7 +73,7 @@ namespace BM_Test
 
         [TestMethod]
         [DataRow("Tiếng Việt 1", "200000", "100000")]
-        public void Test_BookManager_Edit(string d1, string d2, string d3)
+        public void Test_BookManager_2_Edit(string d1, string d2, string d3)
         {
             var menubar = header.FindElementByClassName("MyMenuBar");
             menubar.FindElementByName("Kho sách").Click();
@@ -103,7 +103,7 @@ namespace BM_Test
 
         [TestMethod]
         [DataRow("Tiếng Việt 1")]
-        public void Test_BookManager_Delete(string d)
+        public void Test_BookManager_3_Delete(string d)
         {
             var menubar = header.FindElementByClassName("MyMenuBar");
             menubar.FindElementByName("Kho sách").Click();
@@ -122,10 +122,10 @@ namespace BM_Test
             header = session.FindElementByClassName("Window");
         }
 
-            /*[ClassCleanup]
-            public static void ClassCleanup()
-            {
-                TearDown();
-            }*/
+        [ClassCleanup]
+        public static void ClassCleanup()
+        {
+            TearDown();
         }
+    }
 }

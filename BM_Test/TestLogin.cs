@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
@@ -14,9 +16,9 @@ namespace BM_Test
         [TestInitialize]
         public void TestInitialize()
         {
+            TearDown();
             Setup(null);
-            header = session.FindElementByXPath("/Window[@AutomationId=\"_Login\"]");
-
+            header = session.FindElementByClassName("Window");
         }
 
         [TestMethod]
