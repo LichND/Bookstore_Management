@@ -42,7 +42,7 @@
         </Border>
         <Grid Grid.Row="1" Margin="0,10,0,0">
             <Border Width="40" Height="40" CornerRadius="20" HorizontalAlignment="Left" Style="{StaticResource BorderBaseStyle}" BorderBrush="Black" BorderThickness="2">
-                <Button Style="{StaticResource FakeEllipseButton}" Command="{Binding AddCommand}">
+                <Button x:Name="AddBtn" Style="{StaticResource FakeEllipseButton}" Command="{Binding AddCommand}">
                     <materialDesign:PackIcon Kind="Add"/>
                 </Button>
             </Border>
