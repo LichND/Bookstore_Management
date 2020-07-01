@@ -16,6 +16,7 @@ namespace BookStore_Management.Data
         public string NameManage { get => LogicData.NickName[IDManage]; set => IDManage = LogicData.NickName.IndexOf(value); }
         public DateTime DateTime { get; set; } = DateTime.Now;
         public string Note { get; set; } = "";
+        public string Receiver { get; set; } = "";
         public Money Money { get => _Money; set { _Money = value; OnPropertyChange(); } }
         public ObservableCollection<CTXuatKhoData> Datas { get; set; } = new ObservableCollection<CTXuatKhoData>();
         public override string ToString() => "(" + ID + "," + IDManage + ",\"" + DateTime.ToString() + "\",\"" + Note + "\"," + (long)Money + ")";
@@ -26,6 +27,7 @@ namespace BookStore_Management.Data
             NameManage = NameManage.SafeCopy(),
             DateTime = DateTime,
             Note = Note.SafeCopy(),
+            Receiver = Receiver.SafeCopy(),
             Money = Money.Clone(),
             Datas = Datas.SafeClone()
         };
