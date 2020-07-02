@@ -40,7 +40,7 @@ Sau khi đăng nhập thành công thì giao diện trang chủ sẽ hiện lên
 
 <h1>3. Báo cáo chi tiết</h1>
 
-[Báo cáo.pdf](https://github.com/LichND/Bookstore_Management/files/4777796/Bao.cao.NMCNPM.pdf)
+[Báo cáo Dot NET.pdf](https://github.com/LichND/Bookstore_Management/files/4864543/Bao.caoDotNET.pdf)
 
 <h1>3. Testcase</h1>
 
