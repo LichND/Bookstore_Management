@@ -22,6 +22,10 @@ namespace BookStore_Management.ViewModel
     public class BaseViewModel : BaseNotifyPropertyChanged
     {
         public ICommand SetParentCommand { get; set; }
+        public ICommand NumberVerifyCommand { get; set; }
+            = new RelayCommand<Object>((obj) => true, (obj) => {
+                Console.WriteLine(obj.ToString());
+            });
         protected virtual object Parent { get; set; }
         public Message Message { get; set; } = new Message(Message.MessageType.None);
         protected virtual Window GetWindow(FrameworkElement w)

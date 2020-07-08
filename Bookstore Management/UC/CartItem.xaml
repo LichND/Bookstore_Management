@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:root="clr-namespace:BookStore_Management"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:local="clr-namespace:BookStore_Management.UC"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.FontFamily="Microsoft Sans Serif" TextElement.FontSize="18"
@@ -11,6 +12,7 @@
 
     <UserControl.Resources>
         <root:Heigh2With x:Key="Heigh2With"/>
+        <root:Zero2Null x:Key="NumberConverter"/>
     </UserControl.Resources>
 
     <Grid Width="550" Margin="0,5,0,5">
@@ -64,6 +66,9 @@
                     <Button Command="{Binding MinusCommand}">
                         <materialDesign:PackIcon Kind="Minus"/>
                     </Button>
+                </Border>
+                <Border>
+                    <TextBox Style="{StaticResource TextBoxContentStyle}" Text="{Binding Number, Converter={StaticResource NumberConverter}, ConverterParameter=1, UpdateSourceTrigger=LostFocus}"/>
                 </Border>
                 <Border Margin="-2,0,-2,0">
                     <Button Command="{Binding AddCommand}">

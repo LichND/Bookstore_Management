@@ -31,6 +31,7 @@ namespace BookStore_Management.UC
 
         public event EventHandler<CartItemEventArgs> DeleteThis;
         public event EventHandler<MoneyEventArgs> MoneyChanged;
+        public event EventHandler<MoneyEventArgs> UnknownChanged;
 
         public void CartItemVM_NoItem()
         {
@@ -52,13 +53,31 @@ namespace BookStore_Management.UC
         private BookData _Book;
         public CartItem Host { get; set; }
         public BookData Book { get => _Book; set { _Book = value; OnPropertyChange(); } }
-        public int Number { get => _Number; set { _Number = value; OnPropertyChange(); } }
+        public int Number
+        { 
+            get => _Number; 
+            set
+            {
+                if (value <= 0)
+                {
+                    Host?.CartItemVM_MoneyChanged(Book.Cost * (1 - Number));
+                    if (value == 0)
+                        Host?.CartItemVM_NoItem();
+                    else
+                        value = 1;
+                }
+                else
+                    Host?.CartItemVM_MoneyChanged(Book.Cost * (value - Number));
+                _Number = value;
+                OnPropertyChange(); 
+            } 
+        }
         public CartItemViewModel(BookData book)
         {
             Book = book;
             Number = 1;
-            AddCommand = new RelayCommand<object>(p => { return _Book.Inventory > _Number; }, p => { Number++; Host?.CartItemVM_MoneyChanged(Book.Cost); });
-            MinusCommand = new RelayCommand<object>(p => { return true; }, p => { Number--; Host?.CartItemVM_MoneyChanged(book.Cost * -1); if (_Number == 0) Host?.CartItemVM_NoItem(); });
+            AddCommand = new RelayCommand<object>(p => { return _Book.Inventory > _Number; }, p => { Number++; });
+            MinusCommand = new RelayCommand<object>(p => { return true; }, p => { Number--; });
         }
     }
 

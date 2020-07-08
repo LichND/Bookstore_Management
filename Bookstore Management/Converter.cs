@@ -141,9 +141,13 @@ namespace BookStore_Management
             int ret;
             if (int.TryParse(value as string, out ret))
                 return ret;
+            if (int.TryParse(parameter as string, out ret)) {
+                return ret;
+            }
             return 0;
         }
     }
+
     public class Index2Thickness : IValueConverter
     {
         public static long Offset { get; set; } = 125;
@@ -255,6 +259,7 @@ namespace BookStore_Management
             return ret;
         }
     }
+
     public class int2Star : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

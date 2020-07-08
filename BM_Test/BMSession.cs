@@ -13,7 +13,7 @@ namespace BM_Test
     {
         // Note: append /wd/hub to the URL if you're directing the test at Appium
         protected const string WindowsApplicationDriverUrl = "http://127.0.0.1:4723";
-        private static readonly string AppWorkingDir = @"C:\Users\trunghieu\source\repos\Bookstore_Management\Bookstore Management\bin\Debug\";
+        private static readonly string AppWorkingDir = @"D:\UniFile\Semester VI\kiemThuPhanMem\DoAn\Bookstore_Management\Bookstore Management\bin\Debug\";
         private static readonly string AppPath = Path.Combine(AppWorkingDir, "BookStore Management.exe");
 
         protected static WindowsDriver<WindowsElement> session;
