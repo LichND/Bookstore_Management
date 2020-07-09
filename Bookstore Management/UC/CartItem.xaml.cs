@@ -49,11 +49,11 @@ namespace BookStore_Management.UC
         public ICommand AddCommand { get; set; }
         public ICommand MinusCommand { get; set; }
         #endregion
-        private int _Number;
+        private long _Number;
         private BookData _Book;
         public CartItem Host { get; set; }
         public BookData Book { get => _Book; set { _Book = value; OnPropertyChange(); } }
-        public int Number
+        public long Number
         { 
             get => _Number; 
             set
@@ -67,7 +67,12 @@ namespace BookStore_Management.UC
                         value = 1;
                 }
                 else
+                {
+                    if (value > _Book.Inventory)
+                        value = _Book.Inventory;
                     Host?.CartItemVM_MoneyChanged(Book.Cost * (value - Number));
+                }
+                    
                 _Number = value;
                 OnPropertyChange(); 
             } 

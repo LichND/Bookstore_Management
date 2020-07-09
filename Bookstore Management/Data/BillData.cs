@@ -26,7 +26,7 @@ namespace BookStore_Management.Data
         private int _IDBook;
         public int IDBook { get => _IDBook; set { _IDBook = value; _Book = value.FindBook(); } }
         public int IDHoaDon { get; set; }
-        public int Number { get; set; }
+        public long Number { get; set; }
         public string Money { get => (Number * _Book.Cost).ToString(); }
         public override string ToString() => "(" + IDHoaDon + "," + IDBook + "," + Number + ")";
 
