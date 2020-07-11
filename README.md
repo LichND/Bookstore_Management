@@ -38,10 +38,10 @@ Sau khi đăng nhập thành công thì giao diện trang chủ sẽ hiện lên
 
 ![m2](https://user-images.githubusercontent.com/43202025/60239101-b181ae00-98d6-11e9-8b18-ccc39d0bae93.png)
 
-<h1>3. Báo cáo chi tiết</h1>
+<h1>4. Báo cáo chi tiết</h1>
 
 [Báo cáo Dot NET.pdf](https://github.com/LichND/Bookstore_Management/files/4906937/Bao.caoDotNET.pdf)
 
-<h1>3. Testcase</h1>
+<h1>5. Testcase</h1>
 
 [Testcase.xlsm](https://github.com/LichND/Bookstore_Management/raw/master/Bookstore%20Management/Testcase.xlsm)
