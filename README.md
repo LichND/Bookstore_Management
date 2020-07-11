@@ -1,3 +1,5 @@
+![version](https://img.shields.io/badge/version-v1.0.1-green.svg?style=plastic)
+
 <h1>1. Giới thiệu Đồ án công nghệ .NET - Quản lý Nhà sách</h1>
 
 
