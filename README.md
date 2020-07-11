@@ -24,7 +24,7 @@ Khi build xong bạn sẽ thấy giao diện login,
 
 Phần mềm sẽ có 4 quyền cho 4 loại người dùng với tài khoản và mật khẩu tương ứng như sau:
 
-- Quyền tối cao: admin - admin
+- Quyền admin: admin - admin
 
 - Quyền quản lý kho: warehouse - warehouse
 
@@ -40,7 +40,7 @@ Sau khi đăng nhập thành công thì giao diện trang chủ sẽ hiện lên
 
 <h1>3. Báo cáo chi tiết</h1>
 
-[Báo cáo Dot NET.pdf](https://github.com/LichND/Bookstore_Management/files/4864543/Bao.caoDotNET.pdf)
+[Báo cáo Dot NET.pdf](https://github.com/LichND/Bookstore_Management/files/4906937/Bao.caoDotNET.pdf)
 
 <h1>3. Testcase</h1>
 
